@@ -1,0 +1,10 @@
+#!/usr/execlineb -S0
+
+# This is the shutdown script, running as process 1.
+
+# Make sure we have no open handle to anywhere else
+# than /dev/console
+#cd /
+#fdclose 0
+#redirfd -w 1 /dev/console
+#fdmove -c 2 1

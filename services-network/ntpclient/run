@@ -1,0 +1,20 @@
+#!/bin/execlineb -P
+
+fdmove -c 2 1
+if
+{
+  pipeline
+  {
+    s6-setuidgid ntp
+    backtick -n NTPSERVERIP
+    {
+      pipeline { s6-dnsip4 -t 16000 pool.ntp.org. }
+      s6-head -n 1
+    }
+    import NTPSERVERIP unexport NTPSERVERIP 
+    s6-sntpclock -v 2 $NTPSERVERIP
+  }
+  s6-clockadd
+}
+s6-setuidgid nobody
+s6-sleep 14400

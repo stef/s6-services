@@ -1,0 +1,5 @@
+#!/bin/execlineb -P
+fdmove -c 2 1
+redirfd -w 2 /dev/null
+exec -c
+/usr/bin/gpm -D -m /dev/input/mice -t imps2 -R -a 5 -r 30
